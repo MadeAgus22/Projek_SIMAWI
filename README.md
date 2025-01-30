@@ -1,21 +1,7 @@
-# Projek_SIMAWI on progres ASAP
-akses web= tonidev.my.id
-
-file di Master
-
-user= admin
-pass= admin123
-
-user= dokter
-pass= admin123
-
-Berikut adalah dokumentasi **README** untuk proyek **Sistem Manajemen Rumah Sakit (SIMAWI)** yang menggunakan **CodeIgniter 3** dan **WHO ICD API**.
-
----
-
-## **📌 README.md - SIMAWI (Sistem Manajemen Rumah Sakit)**
+## **📌 SIMAWI (Sistem Manajemen Rumah Sakit)**
 ### **📖 Deskripsi Proyek**
 **SIMAWI** adalah sistem manajemen rumah sakit berbasis web yang memungkinkan **admin dan dokter** untuk mengelola data pasien, mencatat rekam medis, serta mencari dan mencatat kode diagnosis ICD-10 dari WHO API.
+Akses live web: tonidev.my.id
 
 ---
 
@@ -127,7 +113,7 @@ RewriteRule ^(.*)$ index.php/$1 [L]
 ### **🔹 4.1. Login**
 - **URL Admin & Dokter:**  
   ```
-  https://tonidev.my.id/auth/login
+  https://tonidev.my.id/
   ```
 - **Akun Default:**
   - **Admin**  
