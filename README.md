@@ -95,7 +95,7 @@ $db['default'] = array(
 #### **4️⃣ Konfigurasi `base_url`**
 📌 **Edit `application/config/config.php`**:
 ```php
-$config['base_url'] = 'https://tonidev.my.id/'; // Ganti dengan URL hosting Anda
+$config['base_url'] = 'https://tonidev.my.id/'; // golive
 $config['index_page'] = '';
 $config['uri_protocol'] = 'REQUEST_URI';
 ```
