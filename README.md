@@ -53,7 +53,7 @@
 - PHP **7.4+** atau lebih baru
 - MySQL **5.7+** atau lebih baru
 - Apache **2.4+** (mod_rewrite harus aktif)
-- CodeIgniter **3.x**
+- CodeIgniter **3.1.13**
 - Hosting yang mendukung **cPanel** atau **VPS**
 
 ---
@@ -61,8 +61,7 @@
 ### **🔹 2.2. Langkah Instalasi**
 #### **1️⃣ Clone Repository**
 ```sh
-git clone https://github.com/username/simawi.git
-cd simawi
+git clone https://github.com/MadeAgus22/Projek_SIMAWI.git
 ```
 
 #### **2️⃣ Buat Database & Import Struktur**
@@ -109,6 +108,8 @@ private $client_secret = "YOUR_CLIENT_SECRET";
 ```
 📌 **Dapatkan API Key di WHO ICD API:**  
 🔗 [https://icd.who.int/icdapi](https://icd.who.int/icdapi)
+
+saat ini masih gagal mendapatkan kode ICD10
 
 ---
 
