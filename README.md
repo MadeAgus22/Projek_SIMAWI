@@ -55,7 +55,6 @@
 - Apache **2.4+** (mod_rewrite harus aktif)
 - CodeIgniter **3.x**
 - Hosting yang mendukung **cPanel** atau **VPS**
-- Ngrok (opsional, untuk mengakses lokal secara publik)
 
 ---
 
