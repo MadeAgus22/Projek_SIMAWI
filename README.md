@@ -1,7 +1,31 @@
 ## **📌 SIMAWI (Sistem Manajemen Rumah Sakit)**
 ### **📖 Deskripsi Proyek**
 **SIMAWI** adalah sistem manajemen rumah sakit berbasis web yang memungkinkan **admin dan dokter** untuk mengelola data pasien, mencatat rekam medis, serta mencari dan mencatat kode diagnosis ICD-10 dari WHO API.
-Akses live web: tonidev.my.id
+
+## **📌 Penggunaan Aplikasi**
+### **🔹 Login**
+- **URL Admin & Dokter:**  
+  ```
+  https://tonidev.my.id/
+  ```
+- **Akun Default:**
+  - **Admin**  
+    **Username:** `admin`  
+    **Password:** `admin123`
+  - **Dokter**  
+    **Username:** `dokter1`  
+    **Password:** `dokter123`
+
+    ---
+
+### **🔹Registrasi Pasien**
+- **Admin dapat menambahkan pasien baru di menu "Registrasi Pasien".**
+- **Nomor Rekam Medis (RM) otomatis dibuat berdasarkan pasien terakhir.**
+
+### **🔹 Rekam Medis**
+- **Dokter dapat melihat daftar pasien yang belum dilayani.**
+- **Gunakan pencarian ICD-10 dengan mengetik minimal 2 huruf.**
+- **Pilih kode ICD untuk melihat deskripsi penyakit.**
 
 ---
 
@@ -106,31 +130,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L]
 ```
-
----
-
-## **📌 4. Penggunaan Aplikasi**
-### **🔹 4.1. Login**
-- **URL Admin & Dokter:**  
-  ```
-  https://tonidev.my.id/
-  ```
-- **Akun Default:**
-  - **Admin**  
-    **Username:** `admin`  
-    **Password:** `admin123`
-  - **Dokter**  
-    **Username:** `dokter1`  
-    **Password:** `dokter123`
-
-### **🔹 4.2. Registrasi Pasien**
-- **Admin dapat menambahkan pasien baru di menu "Registrasi Pasien".**
-- **Nomor Rekam Medis (RM) otomatis dibuat berdasarkan pasien terakhir.**
-
-### **🔹 4.3. Rekam Medis**
-- **Dokter dapat melihat daftar pasien yang belum dilayani.**
-- **Gunakan pencarian ICD-10 dengan mengetik minimal 2 huruf.**
-- **Pilih kode ICD untuk melihat deskripsi penyakit.**
 
 ---
 
