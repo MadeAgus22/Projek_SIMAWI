@@ -6,7 +6,7 @@
 ### **🔹 Login**
 - **URL Admin & Dokter:**  
   ```
-  https://tonidev.my.id/
+  http://149.129.246.226/simawi/
   ```
 - **Akun Default:**
   - **Admin**  
