@@ -203,3 +203,27 @@ Silakan gunakan dan kembangkan sesuai kebutuhan. 🚀
 ---
 
 🚀 **Coba sekarang dan beri tahu saya jika masih ada kendala!** 🚀
+## Menu Dashboard
+<img width="995" height="611" alt="image" src="https://github.com/user-attachments/assets/84848564-1b90-4301-9fc7-4fee5124c97c" />
+
+## Menu Regristrasi Pasien
+<img width="953" height="603" alt="image" src="https://github.com/user-attachments/assets/210bff1e-c562-4bf5-a97e-a7871b900abb" />
+
+## Menu Manajemen User
+<img width="984" height="605" alt="image" src="https://github.com/user-attachments/assets/998609d6-e181-491c-81e8-f0faaf28f589" />
+<img width="991" height="414" alt="image" src="https://github.com/user-attachments/assets/c597ba7d-7399-497e-bcbf-69df657d2acc" />
+
+## Menu Dokter (Rekam Medis)
+<img width="999" height="586" alt="image" src="https://github.com/user-attachments/assets/d9aa1943-7cb6-449a-87f7-d4679d93f128" />
+<img width="1056" height="572" alt="image" src="https://github.com/user-attachments/assets/43d62a37-daa2-4189-afe8-105b2caff672" />
+<img width="983" height="544" alt="image" src="https://github.com/user-attachments/assets/fac31980-fade-41f6-a44c-a323da9fbd25" />
+<img width="985" height="501" alt="image" src="https://github.com/user-attachments/assets/793b74b8-73d1-4579-a48c-30f6df1cb012" />
+
+
+
+
+
+
+
+
+
