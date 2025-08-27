@@ -79,49 +79,90 @@ class Admin extends CI_Controller {
     
     
     public function add_patient() {
-        $this->load->model('User_model');
+        // 1. Memuat library dan model yang dibutuhkan
+        $this->load->library('form_validation');
         $this->load->model('Patient_model');
 
-        $this->load->model('Patient_model');
-        $data['next_rm'] = $this->Patient_model->get_next_rm();
-        $this->load->view('admin/add_patient', $data);
+        // 2. Menetapkan aturan validasi untuk setiap input form
+        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('nik', 'NIK', 'required|trim|numeric|is_unique[patients.nik]');
+        $this->form_validation->set_rules('gender', 'Gender', 'required');
+        $this->form_validation->set_rules('birth', 'Date of Birth', 'required');
+        $this->form_validation->set_rules('phone', 'Phone', 'required|trim|numeric');
+        $this->form_validation->set_rules('address', 'Address', 'required|trim');
+        $this->form_validation->set_rules('blood_type', 'Blood Type', 'required');
+        $this->form_validation->set_rules('weight', 'Weight', 'required|numeric');
+        $this->form_validation->set_rules('height', 'Height', 'required|numeric');
         
-        // Ambil user yang belum terdaftar sebagai pasien
-        $data['users'] = $this->User_model->get_users_not_in_patients();
-        
-        // Jika tidak ada user yang tersedia
-        if (empty($data['users'])) {
-            $this->session->set_flashdata('error', 'Semua user sudah terdaftar sebagai pasien.');
+        // 3. Menjalankan validasi
+        if ($this->form_validation->run() == FALSE) {
+            // JIKA VALIDASI GAGAL (atau halaman baru pertama kali dibuka)
+            // Tampilkan halaman form tambah pasien
+            $data['next_rm'] = $this->Patient_model->generate_medical_record_number(); // Menggunakan fungsi generate dari model
+            $this->load->view('admin/add_patient', $data);
+        } else {
+            // JIKA VALIDASI SUKSES (form telah disubmit dan semua data valid)
+            // Lanjutkan proses penyimpanan data
+
+            // Hitung umur secara otomatis dari tanggal lahir
+            $birthDate = $this->input->post('birth');
+            $birthDateObj = new DateTime($birthDate);
+            $currentDateObj = new DateTime('today');
+            $age = $birthDateObj->diff($currentDateObj)->y;
+
+            // Siapkan array data untuk dimasukkan ke database
+            $data = [
+                'medical_record_number' => $this->input->post('medical_record_number'),
+                'name'      => $this->input->post('name', true),
+                'age'       => $age, // Gunakan umur yang sudah dihitung
+                'gender'    => $this->input->post('gender', true),
+                'birth'     => $this->input->post('birth', true),
+                'nik'       => $this->input->post('nik', true),
+                'phone'     => $this->input->post('phone', true),
+                'address'   => $this->input->post('address', true),
+                'blood_type'=> $this->input->post('blood_type', true),
+                'weight'    => $this->input->post('weight', true),
+                'height'    => $this->input->post('height', true),
+                'created_at'=> date('Y-m-d H:i:s'),
+                'updated_at'=> date('Y-m-d H:i:s')
+            ];
+
+            // Panggil model untuk menyimpan data
+            $this->Patient_model->insert_patient($data);
+            
+            // Buat pesan sukses untuk ditampilkan di halaman berikutnya
+            $this->session->set_flashdata('message', 'Pasien baru berhasil ditambahkan.');
+            
+            // Arahkan pengguna kembali ke halaman daftar pasien
             redirect('admin/patients');
         }
-    
-        $data['next_rm'] = $this->Patient_model->get_next_rm();
-    
-        $this->load->view('admin/add_patient', $data);
     }
+
+    // HAPUS METHOD save_patient() DARI KODE ANDA
+    // public function save_patient() { ... }
      
-    public function save_patient() {
-        $this->load->model('Patient_model');
+    // public function save_patient() {
+    //     $this->load->model('Patient_model');
     
-        $data = [
-            'medical_record_number' => $this->input->post('medical_record_number'),
-            'name' => $this->input->post('name'),
-            'age' => $this->input->post('age'),
-            'gender' => $this->input->post('gender'),
-            'birth' => $this->input->post('birth'),
-            'nik' => $this->input->post('nik'),
-            'phone' => $this->input->post('phone'),
-            'address' => $this->input->post('address'),
-            'blood_type' => $this->input->post('blood_type'),
-            'weight' => $this->input->post('weight'),
-            'height' => $this->input->post('height'),
-            'created_at' => date('Y-m-d H:i:s'), // Pastikan created_at terisi
-            'updated_at' => date('Y-m-d H:i:s')
-        ];
+    //     $data = [
+    //         'medical_record_number' => $this->input->post('medical_record_number'),
+    //         'name' => $this->input->post('name'),
+    //         'age' => $this->input->post('age'),
+    //         'gender' => $this->input->post('gender'),
+    //         'birth' => $this->input->post('birth'),
+    //         'nik' => $this->input->post('nik'),
+    //         'phone' => $this->input->post('phone'),
+    //         'address' => $this->input->post('address'),
+    //         'blood_type' => $this->input->post('blood_type'),
+    //         'weight' => $this->input->post('weight'),
+    //         'height' => $this->input->post('height'),
+    //         'created_at' => date('Y-m-d H:i:s'), // Pastikan created_at terisi
+    //         'updated_at' => date('Y-m-d H:i:s')
+    //     ];
     
-        $this->Patient_model->insert_patient($data);
-        redirect('admin/dashboard'); // Arahkan kembali ke dashboard setelah registrasi
-    }
+    //     $this->Patient_model->insert_patient($data);
+    //     redirect('admin/dashboard'); // Arahkan kembali ke dashboard setelah registrasi
+    // }
     
     
     public function edit_patient($id) {
@@ -241,9 +282,5 @@ class Admin extends CI_Controller {
         $this->session->set_flashdata('success', 'Password berhasil diperbarui!');
         redirect('admin/dashboard');
     }
-
-    
-    
-    
-    
+   
 }

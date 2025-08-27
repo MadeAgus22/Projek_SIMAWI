@@ -2,87 +2,135 @@
 <?php include('application/views/templates/sidebar.php'); ?>
 
 <div class="container mt-3">
-    <h2>Registrasi Pasien</h2>
+    <h2>Registrasi Kunjungan Pasien</h2>
+    <hr>
 
-    <!-- Pilihan Registrasi -->
     <div class="mb-3">
-        <label><input type="radio" name="patient_type" value="new" checked onclick="togglePatientForm('new')"> Pasien Baru</label>
+        <label class="me-3"><input type="radio" name="patient_type" value="new" checked onclick="togglePatientForm('new')"> Pasien Baru</label>
         <label><input type="radio" name="patient_type" value="existing" onclick="togglePatientForm('existing')"> Pasien Lama</label>
     </div>
 
-    <!-- Form Registrasi Pasien Baru -->
     <div id="new_patient_form">
-        <form action="<?= base_url('admin/save_patient'); ?>" method="post">
+        <?= form_open('admin/add_patient'); ?>
+        
         <div class="mb-3">
-            <label>Nomor Rekam Medis</label>
-            <input type="text" name="medical_record_number" class="form-control" value="<?= isset($next_rm) ? $next_rm : 'RM0001'; ?>" readonly>
+            <label class="form-label">Nomor Rekam Medis</label>
+            <input type="text" name="medical_record_number" class="form-control" value="<?= isset($next_rm) ? $next_rm : ''; ?>" readonly>
         </div>
+        
         <div class="mb-3">
-            <label>Nama Lengkap</label>
-            <input type="text" name="name" class="form-control" required>
+            <label class="form-label">Nama Lengkap</label>
+            <input type="text" name="name" class="form-control" value="<?= set_value('name'); ?>" placeholder="Masukkan nama lengkap">
+            <?= form_error('name', '<div class="text-danger small mt-1">', '</div>'); ?>
         </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">NIK</label>
+                <input type="text" name="nik" class="form-control" maxlength="16" value="<?= set_value('nik'); ?>" placeholder="Masukkan 16 digit NIK">
+                <?= form_error('nik', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Phone</label>
+                <input type="text" name="phone" class="form-control" value="<?= set_value('phone'); ?>" placeholder="Contoh: 08123456789">
+                <?= form_error('phone', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
+        </div>
+
         <div class="mb-3">
-            <label>NIK</label>
-            <input type="text" name="nik" class="form-control" maxlength="16" required>
+            <label class="form-label">Address</label>
+            <textarea name="address" class="form-control" placeholder="Masukkan alamat lengkap"><?= set_value('address'); ?></textarea>
+            <?= form_error('address', '<div class="text-danger small mt-1">', '</div>'); ?>
         </div>
-        <div class="mb-3">
-            <label>Phone</label>
-            <input type="text" name="phone" class="form-control" required>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="birth" class="form-label">Tanggal Lahir</label>
+                <input type="date" name="birth" id="birth" class="form-control" value="<?= set_value('birth'); ?>">
+                <?= form_error('birth', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
+            
+            <div class="col-md-2 mb-3">
+                <label for="age_view" class="form-label">Umur</label>
+                <input type="text" id="age_view" class="form-control" value="0" readonly>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label for="gender" class="form-label">Jenis Kelamin</label>
+                <select name="gender" id="gender" class="form-control">
+                    <option value="">-- Pilih Jenis Kelamin --</option>
+                    <option value="Male" <?= set_select('gender', 'Male'); ?>>Laki-laki</option>
+                    <option value="Female" <?= set_select('gender', 'Female'); ?>>Perempuan</option>
+                </select>
+                <?= form_error('gender', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
         </div>
-        <div class="mb-3">
-            <label>Address</label>
-            <textarea name="address" class="form-control" required></textarea>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Golongan Darah</label>
+                <select name="blood_type" class="form-control">
+                    <option value="">-- Pilih --</option>
+                    <option value="A" <?= set_select('blood_type', 'A'); ?>>A</option>
+                    <option value="B" <?= set_select('blood_type', 'B'); ?>>B</option>
+                    <option value="AB" <?= set_select('blood_type', 'AB'); ?>>AB</option>
+                    <option value="O" <?= set_select('blood_type', 'O'); ?>>O</option>
+                </select>
+                <?= form_error('blood_type', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Berat Badan (kg)</label>
+                <input type="number" name="weight" class="form-control" value="<?= set_value('weight'); ?>" placeholder="Contoh: 65">
+                <?= form_error('weight', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Tinggi Badan (cm)</label>
+                <input type="number" name="height" class="form-control" value="<?= set_value('height'); ?>" placeholder="Contoh: 170">
+                <?= form_error('height', '<div class="text-danger small mt-1">', '</div>'); ?>
+            </div>
         </div>
-        <div class="mb-3">
-            <label>Tanggal Lahir</label>
-            <input type="date" name="birth" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>Golongan Darah</label>
-            <select name="blood_type" class="form-control">
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="AB">AB</option>
-                <option value="O">O</option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label>Berat Badan (kg)</label>
-            <input type="number" name="weight" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>Tinggi Badan (cm)</label>
-            <input type="number" name="height" class="form-control" required>
-        </div>
-            <button type="submit" class="btn btn-success">Simpan Pasien Baru</button>
+        
+        <button type="submit" class="btn btn-success">Simpan Pasien Baru</button>
         </form>
     </div>
 
-    <!-- Form Registrasi Pasien Lama -->
     <div id="existing_patient_form" style="display: none;">
-        <div class="mb-3">
-            <label>Cari Pasien Lama (Nomor RM)</label>
-            <input type="text" id="search_rm" class="form-control">
-            <button type="button" class="btn btn-primary mt-2" onclick="searchPatient()">Cari</button>
         </div>
-        <form action="<?= base_url('admin/register_existing_patient'); ?>" method="post" id="existing_patient_data" style="display: none;">
-            <input type="hidden" name="patient_id" id="patient_id">
-            <div class="mb-3">
-                <label>Nama</label>
-                <input type="text" id="patient_name" class="form-control" readonly>
-            </div>
-            <div class="mb-3">
-                <label>Nomor RM</label>
-                <input type="text" id="patient_rm" class="form-control" readonly>
-            </div>
-            <button type="submit" class="btn btn-success">Simpan Kunjungan</button>
-        </form>
-    </div>
 </div>
 
 <?php include('application/views/templates/footer.php'); ?>
 
 <script>
+// Menunggu sampai seluruh halaman web selesai dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    // Mengambil elemen input tanggal lahir dan umur
+    const birthInput = document.getElementById('birth');
+    const ageViewInput = document.getElementById('age_view');
+
+    // Fungsi untuk menghitung dan menampilkan umur
+    function calculateAge() {
+        const birthDate = new Date(birthInput.value);
+        if (!isNaN(birthDate.getTime())) { // Cek jika tanggal valid
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            ageViewInput.value = age < 0 ? 0 : age; // Tampilkan umur, minimal 0
+        } else {
+            ageViewInput.value = 0; // Jika tanggal tidak valid, umur 0
+        }
+    }
+
+    // Panggil fungsi calculateAge saat nilai tanggal lahir berubah
+    birthInput.addEventListener('change', calculateAge);
+
+    // Panggil juga saat halaman dimuat, jika tanggal lahir sudah terisi (misal saat validasi error)
+    calculateAge();
+});
+
+// Fungsi Javascript tidak diubah
 function togglePatientForm(type) {
     if (type === 'new') {
         document.getElementById('new_patient_form').style.display = 'block';
